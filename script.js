@@ -14,6 +14,22 @@ menuButton.addEventListener('click', () => {
   menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
 });
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && document.body.classList.contains('menu-open')) {
+    document.body.classList.remove('menu-open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open navigation');
+    menuButton.focus();
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 1050 && document.body.classList.contains('menu-open')) {
+    document.body.classList.remove('menu-open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  }
+}, { passive: true });
+
 navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
   document.body.classList.remove('menu-open');
   menuButton.setAttribute('aria-expanded', 'false');
